@@ -1,0 +1,16 @@
+https://api.apilayer.com/exchangerates_data/convert?to=INR&from=INR&amount=10&apikey=Mf7TXnmk6iH7XykSB3LFWe00xZ1p5tVr
+
+{
+    "success": true,
+    "query": {
+        "from": "INR",
+        "to": "INR",
+        "amount": 10
+    },
+    "info": {
+        "timestamp": 1666281664,
+        "rate": 1
+    },
+    "date": "2022-10-20",
+    "result": 10
+}

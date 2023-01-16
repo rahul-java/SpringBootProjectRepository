@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="BASE::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">Warehouse</title>
+</head>
+<body>
+<section>
+
+<div class="container">
+		<br>
+		<div class="card">
+			<div class="card-header bg-primary bg-gradient text-center text-white">
+				<h1>Edit Product</h1>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/product/update}" method="post"
+					th:object="${Product}">
+					<!-- Product ID -->
+					<div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="id">ID</label>
+                        </div>
+                        <div class="col-6">
+                             <input type="text" th:field="*{prodId}" class="form-control" readonly="readonly"> 
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                  </div><br>
+					
+					<!-- Product Code -->
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-2">
+							<label >Product Code</label>
+						</div>
+						<div class="col-6">
+							<input type="text" th:field="*{prodCode}" class="form-control">
+						</div>
+						<div class="col-1">
+							<span id="errorMsg"></span>
+						</div>
+						<div class="col-2"></div>
+					</div>
+					<br>
+					
+					<!-- Product Name -->
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-2">
+							<label for="shipmentCode">Product Name</label>
+						</div>
+						<div class="col-6">
+							<input type="text" th:field="*{prodName}" class="form-control">
+						</div>
+						<div class="col-1">
+							<span id="errorMsg"></span>
+						</div>
+						<div class="col-2"></div>
+					</div>
+					<br>
+
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-2">
+							<label for="shipmentMode">Product Dimension</label>
+						</div>
+						<div class="col-6">
+							<!-- ENTER Input -->
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-default">Length</span>
+								</div>
+								<input type="text" class="form-control" th:field="*{prodLength}"
+									aria-label="Default"
+									aria-describedby="inputGroup-sizing-default">
+									<div class="input-group-prepend">
+									
+									<span class="input-group-text" id="inputGroup-sizing-default">Height</span>
+								</div>
+								<input type="text" class="form-control" th:field="*{prodHeight}"
+									aria-label="Default"
+									aria-describedby="inputGroup-sizing-default">
+								
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-default">Width</span>
+								</div>
+								<input type="text" class="form-control" th:field="*{prodWidth}"
+									aria-label="Default"
+									aria-describedby="inputGroup-sizing-default">	
+							</div>
+							
+						</div>
+						<div class="col-1">
+							<span id="errorMsg"></span>
+						</div>
+						<div class="col-2"></div>
+					</div>
+					<br>
+
+
+					<!-- Product Cost -->
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-2">
+							<label for="enableShipment">Product Cost</label>
+						</div>
+						<div class="col-6">
+							<input type="text" class="form-control" th:field="*{prodCost}">
+						</div>
+						<div class="col-1">
+							<span id="errorMsg"></span>
+						</div>
+						<div class="col-2"></div>
+					</div>
+					<br>
+
+                      <!-- Product Currency -->
+					<div class="row">
+						<div class="col-1">
+						</div>
+						<div class="col-2">
+							<label for="shipmentMode">Currency</label>
+						</div>
+						<div class="col-6">
+							<!-- ENTER Input -->
+							<select th:field="*{prodCurrency}" class="form-control">
+								<option value="">-Select-</option>
+								<option value="KWD">KWD</option>
+								<option value="GBP">GBP</option>
+								<option value="EUR">EUR</option>
+								<option value="USD">USD</option>
+								<option value="CNY">CNY</option>
+								<option value="INR">INR</option>
+							</select>
+						</div>
+						<div class="col-1">
+							<span id="errorMsg"></span>
+						</div>
+						<div class="col-2"></div>
+					</div>
+					<br>
+					
+					 <!-- Uom model -->
+					<div class="row">
+						<div class="col-1">
+						</div>
+						<div class="col-2">
+							<label for="shipmentMode">Uom Model</label>
+						</div>
+						<div class="col-6">
+							<!-- ENTER Input -->
+							<select th:field="*{uom.id}" class="form-control">
+								<option value="">-Select-</option>
+								<option th:each="obj:${uoms}" th:value="${obj.key}" th:text="${obj.value}"></option>
+								
+							</select>
+						</div>
+						<div class="col-1">
+							<span id="errorMsg"></span>
+						</div>
+						<div class="col-2"></div>
+					</div>
+					<br>
+					
+					<!-- Order Type -->
+					<div class="row">
+						<div class="col-1">
+						</div>
+						<div class="col-2">
+							<label for="shipmentMode">Order Type</label>
+						</div>
+						<div class="col-6">
+							<!-- ENTER Input -->
+							<select th:field="*{orderMethod.id}" class="form-control">
+								<option value="">-Select-</option>
+								<option th:each="obj:${orderMethods}" th:value="${obj.key}" th:text="${obj.value}"></option>
+								
+							</select>
+						</div>
+						<div class="col-1">
+							<span id="errorMsg"></span>
+						</div>
+						<div class="col-2"></div>
+					</div>
+					<br>
+
+					<div class="container" align="center">
+						<input type="submit" value="Update Product"
+							class="btn btn-success">
+							<a th:href="@{/product/}" class="btn btn-primary">Add More Product</a>
+							 <a th:href="@{/product/all?page=0}" class="btn btn-primary ">View All Product</a>
+					</div>
+
+				</form>
+			</div>
+			<div class="card-footer bg-primary bg-gradient">
+				<span th:text="${msg}" class="text-white"></span>
+			</div>
+		</div>
+	</div>
+
+
+</section>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="BASE::layout(~{::section})">
+<section>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<!-- Rupee Symbol and Rupee text -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrersolicy="no-referrer" />
+    
+</head>
+<body>
+	
+	
+	<div class="container">
+				
+		<br>
+		<div class="card">
+
+			<div class="card-header bg-primary text-white text-center">
+				<h1>Order Details</h1>
+			</div>
+			<div class="card-body">
+			
+					<!--Screen 2:  Section #1 Order Code , Status -->
+					
+					<!-- Order Code , Status -->
+					
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-10">
+						
+							<div class="input-group input-group-default">
+                              <span class="input-group-text" id="inputGroup-sizing-default">Order Code</span>
+                              <input readonly type="text" th:field="${saleOrder.orderCode}" class="form-control fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                              <span class="input-group-text" id="inputGroup-sizing-default">Status</span>
+                              <input readonly type="text" th:field="${saleOrder.status}" class="form-control fw-bold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                          
+                            </div>
+                            
+	
+						</div>
+						<div class="col-1"></div>
+						
+					</div><br>
+					
+					<!--Screen 2:  Section #2 Sale Order Details -->
+				<div th:if="${saleOrder.status=='PICKING' || saleOrder.status=='OPEN'}" >
+				<form id="orderSubmit" th:action="@{/saleOrder/saveItems}" method="post" th:object="${orderDetails}">
+				
+				
+					<!-- ID -->
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-2">
+						
+						</div>
+						<div class="col-6">
+							<input type="hidden" th:field="*{id}" class="form-control">
+						</div>
+						<div class="col-3">
+							<span id="errorMsg"></span>
+						</div>
+						
+					</div>
+					
+					
+					<!-- Sale Order Integration -->
+					
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-2">
+						
+						</div>
+						<div class="col-6">
+							<input type="hidden" name="saleOrder.id" th:value="${saleOrder.id}" class="form-control">
+						</div>
+						<div class="col-3">
+							<span id="errorMsg"></span>
+						</div>
+						
+					</div>
+			
+				
+				<div class="row">
+						<div class="col-1">
+						</div>
+						<div class="col-7">
+						 <div class="input-group input-group-default">
+						    <span class="input-group-text" id="inputGroup-sizing-default">Select Product</span>
+							<select th:field="*{product.prodId}" class="form-control items" id="items" name="item">
+								<option value="">--Select--</option>
+								<option th:each="obj:${Products}" th:value="${obj.key}" th:text="${obj.value}"></option>
+								
+							</select> 
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-default">Quantity</span>
+								</div>
+								<input type="text" id="quantity" class="form-control" th:field="*{quantity}" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+									
+						</div>
+						</div>
+						<div class="col-2">
+						
+						    <input type="submit" value="Add Item" class="btn btn-primary">
+				
+						</div>
+						<div class="col-2">
+						
+						    <span id="errorMsg-item"></span>
+				
+						</div>
+						
+					
+					</div>
+					<br>
+					 
+					</form>
+				</div>
+					<hr>
+					<!-- Screen #2 : Section #3 for display -->
+				    <!-- Display all Sale Order Details Items -->
+				    
+				<table class="table table-hover text-center">
+					<tr class="bg-success text-white">
+						<th>S.No</th>
+						<th>Product Name</th>
+						<th><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> Unit Price</th>
+						<th>Quantity</th>
+						<th><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> Amount</th>
+						<th th:if="${saleOrder.status=='PICKING'}">Operation</th>
+					</tr>
+					<tr th:each="od,i:${list}">
+						<td th:text="${i.count}"></td>
+						<td th:text="${od.product.prodName}"></td>  
+                            <td >
+                            <i class="fa-sharp fa-solid fa-indian-rupee-sign"></i>
+                            <span th:text="${od.product.prodCost}"></span>
+                            </td>
+						<td th:text="${od.quantity}"></td>
+						<td>
+						 <i class="fa-sharp fa-solid fa-indian-rupee-sign"></i>
+						 <span th:text="${(od.product.prodCost)*(od.quantity)}"></span>
+						</td>
+						<td th:if="${saleOrder.status=='PICKING'}"> 
+						   <a th:href="@{/saleOrder/modifyItem?dtlsId={id1}&soId={id2}(id1=${od.id},id2=${saleOrder.id})}" class="btn btn-primary btn-sm">Modify</a>
+						   <a th:href="@{/saleOrder/removeItem?dtlsId={id1}&soId={id2}(id1=${od.id},id2=${saleOrder.id})}" class="btn btn-danger btn-sm">Remove</a>
+					    </td>
+					</tr>
+				</table>
+				<div class="text-center" >
+				  <a th:if="${saleOrder.status=='PICKING'}" th:href="@{/saleOrder/placeOrder?soId={id}(id=${saleOrder.id})}" class="btn btn-success">Confirm</a>
+				  <a th:href="@{/saleOrder/all?page=0}" class="btn btn-primary">NEXT>></a>
+				</div>
+				
+			</div>
+			<div class="card-footer bg-primary text-center">
+			  <span th:text="${msg}" class="text-white font-weight-bold"></span>
+			</div>
+		</div>
+		
+	</div>
+	
+ <script>
+    $(document).ready(function(){
+        $('#errorMsg-item').hide();
+        var itemTypeError=false;
+
+        
+        function checkValidSelection(){
+        	var selectedItem = $('#items').val();
+        	var quantity = $('#quantity').val();
+        	var Exp=/^\d+$/;
+            if(selectedItem==""){
+            	itemTypeError=false;
+                $('#errorMsg-item').show();
+                $('#errorMsg-item').text("*Please Select Product");
+                $('#errorMsg-item').css('color','red');
+                return itemTypeError;
+            }else{
+            	if(!(Exp.test(quantity)))
+            	 {
+            		itemTypeError=false;
+            		$('#errorMsg-item').show();
+                    $('#errorMsg-item').text("*Enter Valid Quantity");
+                    $('#errorMsg-item').css('color','red');
+            		return itemTypeError;
+            		}else{
+            			$('#errorMsg-item').hide(); 
+                        itemTypeError=true;
+            		}
+                   
+            }
+            return itemTypeError;
+        }
+
+        $("select.items").change(function(){
+        	  checkValidSelection();
+        });
+        $('#quantity').keyup(function(){
+        	checkValidSelection();
+           });
+        
+        $('#orderSubmit').submit(function (){
+        	checkValidSelection();
+            if(itemTypeError)
+            return true;
+            else
+            return false;
+        });
+        
+    });
+ </script> 
+	
+	</section>
+</body>
+</html>

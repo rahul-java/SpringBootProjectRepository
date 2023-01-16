@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="BASE::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">Warehouse</title>
+</head>
+<body>
+
+
+<section>
+<div class="container"><br>
+            <div class="card">
+                <div class="card-header bg-primary bg-gradient text-center text-white">
+                   <h1>ShipmentType Registration</h1>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/shipment/save}" method="post" th:object="${ShipmentType}">
+                    <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="shipmentMode">Shipment Mode</label>
+                        </div>
+                        <div class="col-6">
+                            <!-- ENTER Input -->
+                             <select th:field="*{shipmentMode}" class="form-control">
+                       <option value="">-Select-</option>
+                       <option value="AIR">AIR</option>
+                       <option value="SHIP">SHIP</option>
+                       <option value="TRAIN">TRAIN</option>
+                    </select>
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+                            
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="shipmentCode">Shipment Code</label>
+                        </div>
+                        <div class="col-6">
+                             <input type="text" th:field="*{shipmentCode}" class="form-control"> 
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                  </div><br>
+                  
+                  <!-- Enable Shipment -->
+                  <div class="row">
+                            <div class="col-1">
+    
+                            </div>
+                            <div class="col-2">
+                                <label for="enableShipment">Enable Shipment</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="radio" th:field="*{enableShipment}"  value="Yes">Yes 
+                                <input type="radio" th:field="*{enableShipment}"  value="No">No 
+                            </div>
+                            <div class="col-1">
+                                <span id="errorMsg"></span>
+                            </div>
+                            <div class="col-2">
+                                
+                            </div>
+                        </div><br>
+                  
+                  <!-- Grade  -->
+                  <div class="row">
+                            <div class="col-1">
+    
+                            </div>
+                            <div class="col-2">
+                                <label for="grade">GRADE</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="radio" th:field="*{grade}"  value="A">Grade A 
+                                <input type="radio" th:field="*{grade}"  value="B">Grade B
+                                <input type="radio" th:field="*{grade}"  value="C">Grade C 
+                            </div>
+                            <div class="col-1">
+                                <span id="errorMsg"></span>
+                            </div>
+                            <div class="col-2">
+                                
+                            </div>
+                        </div><br>
+                  
+                        <div class="row">
+                            <div class="col-1">
+    
+                            </div>
+                            <div class="col-2">
+                                <label for="shipmentDescription">Description</label>
+                            </div>
+                            <div class="col-6">
+                                <textarea th:field="*{shipmentDescription}" class="form-control"></textarea> 
+                            </div>
+                            <div class="col-1">
+                                <span id="errorMsg"></span>
+                            </div>
+                            <div class="col-2">
+                                
+                            </div>
+                        </div><br>
+                        
+                        <div class="container" align="center">
+                          <input type="submit" value="Add ShipmentType" class="btn btn-success">
+                          <a th:href="@{/shipment/all?page=0}" class="btn btn-primary">View All ShipmentType</a>
+                       </div>
+                       
+                  </form>
+              </div>
+                <div class="card-footer bg-primary">
+                    <span th:text="${msg}" class="text-white"></span>
+                </div>
+          </div>
+      </div>
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="BASE::layout(~{::section})">
+<section>
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">Warehouse</title>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+</head>
+
+<body>
+
+
+
+<div class="container"><br>
+            <div class="card">
+                <div class="card-header bg-primary bg-gradient text-center text-white">
+                   <h1>User Registration</h1>
+                </div>
+                <div class="card-body">
+                    <form id="userSubmit" th:action="@{/user/save}" method="post" th:object="${User}">
+                    
+                    <!-- User Code -->
+                    <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="orderCode">User Code</label>
+                        </div>
+                        <div class="col-6">
+                             <input type="text" th:field="*{userCode}" class="form-control"> 
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                  </div><br>
+                  
+                      <!--  User Type -->
+                     <div class="row">
+                            <div class="col-1">
+    
+                            </div>
+                            <div class="col-2">
+                                <label >User Type</label>
+                            </div>
+                            <div class="col-6">
+                                <input onclick="autoForUser()" type="radio" id="customer" name="userType" th:field="*{userType}"  value="CUSTOMER">CUSTOMER 
+                                <input onclick="autoForUser()" type="radio" id="vendor" name="userType" th:field="*{userType}"  value="VENDOR">VENDOR
+                                 
+                            </div>
+						   <div class="col-3 text-danger ">
+							  <span id="errorMsg-userType"></span>
+						   </div>  
+					</div><br>
+                    
+                    <!-- For USer -->
+                    <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="orderCode">For User</label>
+                        </div>
+                        <div class="col-6">
+                             <input type="text" name="forUser" id="forUser" th:field="*{forUser}" class="form-control" readonly> 
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                  </div><br>
+                  
+                  <!-- User Email -->
+                    <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="orderCode">User Email</label>
+                        </div>
+                        <div class="col-6">
+                             <input type="email" th:field="*{userEmail}" class="form-control"> 
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                  </div><br>
+                  <!-- Order Type -->
+                  <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="orderType">User ID Card</label>
+                        </div>
+                        <div class="col-6">
+                            
+                             <select th:field="*{userIdCard}" class="form-control">
+                       <option value="">-Select-</option>
+                       <option value="PAN Card">PAN Card</option>
+                       <option value="AADHAR Card">AADHAR Card</option>
+                       <option value="DRIVING License">DRIVING License</option>
+                       <option value="VOTER ID Card">VOTER ID Card</option>
+                       
+                    </select>
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+                            
+                        </div>
+                    </div><br>
+                  
+                        <div class="container" align="center">
+                          <input type="submit" value="Register" class="btn btn-success">
+                          <a th:href="all" class="btn btn-primary">View All User</a>
+                       </div>
+                       
+                  </form>
+              </div>
+                <div class="card-footer bg-primary bg-gradient">
+                    <span th:text="${msg}" class="text-white"></span>
+                </div>
+          </div>
+      </div>
+
+<script>
+    $(document).ready(function(){
+        $('#errorMsg-userType').hide();
+        var userTypeError=false;
+
+        function userType(){
+            var length=$('[name="userType"]:checked').length;
+            if(length==0){
+                $('#errorMsg-userType').show();
+                $('#errorMsg-userType').text("Please Choose One USer Type");
+                $('#errorMsg-userType').css('color','red');
+            }else{
+                $('#errorMsg-userType').hide(); 
+                userTypeError=true;
+                if($('#customer').is(':checked'))
+                  $('#forUser').val("PURCHASE").focus() ;
+                if($('#vendor').is(':checked'))
+                  $('#forUser').val("SALE").focus() ;
+                
+            }
+            return userTypeError;
+        }
+
+        $('[name="userType"]').click(function(){
+            userType();
+        });
+
+        $('#userSubmit').submit(function (){
+            userType();
+            if(userTypeError)
+            return true;
+            else
+            return false;
+        });
+    });
+ </script>
+
+</section>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="BASE::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">Warehouse</title>
+</head>
+<body>
+<section>
+<div class="container"><br>
+            <div class="card">
+
+                <div class="card-header bg-primary bg-gradient text-white text-center">
+                    <h1>User Data</h1>
+                    
+                </div>
+                <div class="card-body">
+                    <a th:href="@{/user/}" class="btn btn-success text-white menu">Add More User</a>
+                    <a th:href="@{#}" class="btn btn-success menu">EXCEL EXP</a>
+                    <a th:href="@{#}" class="btn btn-success menu">PDF EXP</a>
+                    <table class="table table-hover text-center mt-1">
+                        <tr class="bg-success text-white">
+                           <th>ID</th>
+                           <th>Code</th>
+                           <th>Type</th>
+                           <th>For User</th>
+                           <th>Email</th>
+                           <th>ID Card</th>
+                           <th>Option</th>
+                           
+                        </tr>
+                        <tr th:each="user:${list}">
+                           <td th:text="${user.id}"></td>
+                           <td th:text="${user.userCode}"></td>
+                           <td th:text="${user.userType}"></td>
+                           <td th:text="${user.forUser}"></td>
+                           
+                           <td th:text="${user.userEmail}"></td>
+                           <td th:text="${user.userIdCard}"></td>
+                           
+                            <td>
+                                <a th:href="@{/user/edit?id={user_id}(user_id=${user.id})}" class="btn btn-primary btn-sm">edit</a>
+                                <a th:href="@{/user/delete?id={user_id}(user_id=${user.id})}" class="btn btn-danger btn-sm">delete</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer bg-primary">
+                    <!--  <div class="alert alert-info text-center">Status:Fetched all records...</div> -->
+                </div>
+            </div>
+        </div>
+</section>
+</body>
+</html>
