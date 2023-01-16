@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div align="center">
+<a href="/">GoBackToHome</a>
+<table border="1">
+<tr bgcolor="skyblue">
+<th>ID</th><th>Name</th><th>Address</th><th>Fee</th><th>Option</th>
+</tr>
+<tr th:each="obj:${students}">
+<td th:text="${obj.id}"></td>
+<td th:text="${obj.name}"></td>
+<td th:text="${obj.add}"></td>
+<td th:text="${obj.fee}"></td>
+<td> 
+     <a th:href="@{/edit?id={stuId}(stuId=${obj.id})}">edit</a>  
+     <a th:href="@{/delete?id={stuId}(stuId=${obj.id})}">delete</a>
+</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

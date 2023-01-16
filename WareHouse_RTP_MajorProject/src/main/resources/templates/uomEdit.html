@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="BASE::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">Warehouse</title>
+</head>
+<body>
+<section>
+<div class="container"><br>
+            <div class="card">
+                <div class="card-header bg-primary bg-gradient text-center text-white">
+                   <h1>EDIT UOM</h1>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/uom/update}" method="post" th:object="${uom}">
+                    <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="id">ID</label>
+                        </div>
+                        <div class="col-6">
+                             <input type="text" th:field="*{id}" class="form-control" readonly="readonly"> 
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                  </div><br>
+                    <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="uomType">Uom Type</label>
+                        </div>
+                        <div class="col-6">
+                            <!-- ENTER Input -->
+                             <select th:field="*{uomType}" class="form-control">
+                       <option value="">-Select-</option>
+                       <option value="PACKING">PACKING</option>
+                       <option value="NO PACKING">NO Packing</option>
+                       <option value="NOT AVAILABLE">NOT AVAILABLE</option>
+                    </select>
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+                            
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="uomModel">Uom Model</label>
+                        </div>
+                        <div class="col-6">
+                             <input type="text" th:field="*{uomModel}" class="form-control"> 
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                  </div><br>
+                        <div class="row">
+                            <div class="col-1">
+    
+                            </div>
+                            <div class="col-2">
+                                <label for="uomDiscription">Description</label>
+                            </div>
+                            <div class="col-6">
+                                <textarea th:field="*{uomDiscription}" class="form-control"></textarea> 
+                            </div>
+                            <div class="col-1">
+                                <span id="errorMsg"></span>
+                            </div>
+                            <div class="col-2">
+                                
+                            </div>
+                        </div><br>
+                        
+                        <div class="container" align="center">
+                          
+                          <input type="submit" value="UPDATE" class="btn btn-success">
+                          <a th:href="@{/uom/}" class="btn btn-primary">Add More</a>
+                          <a th:href="@{/uom/all?page=0}" class="btn btn-primary">View All</a>
+                       </div>
+                       
+                  </form>
+              </div>
+                <div class="card-footer bg-primary bg-gradient">
+                    <span th:text="${msg}"></span>
+                </div>
+          </div>
+      </div>
+</section>
+</body>
+</html>

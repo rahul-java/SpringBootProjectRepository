@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="BASE::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">Warehouse</title>
+</head>
+<body>
+<section>
+
+<div class="container"><br>
+            <div class="card">
+
+                <div class="card-header bg-primary bg-gradient text-white text-center ">
+                    <h1>Purchase Order Data</h1>
+                </div>
+                <div class="card-body">
+                <a th:href="@{/purchaseOrder/}" class="btn btn-success menu">Add More</a>
+                <a th:href="@{#}" class="btn btn-success menu">EXCEL EXP</a>
+                <a th:href="@{#}" class="btn btn-success menu">PDF EXP</a>
+                    <table class="table table-hover text-center mt-1">
+                        <tr class="bg-success text-white">
+                           <th>ID</th>
+                           <th>OrderCode</th>
+                           <th>UserType</th>
+                           <th>ShipmentMode</th>
+                           <th>ReferenceNo</th>
+                           <th>QualityCheck</th>
+                            <th>Status</th>
+                           <th colspan="2">Operation</th>
+                           
+                        </tr>
+                        <tr th:each="po:${list}">
+                           <td th:text="${po.id}"></td>
+                           <td  th:text="${po.orderCode}"></td>
+                           <td th:text="${po.user.userCode}"></td>
+                           <td th:text="${po.shipmentType.shipmentMode}"></td>
+                           <td th:text="${po.referenceNo}"></td>
+                           <td th:text="${po.qualityCheck}"></td>
+                           <td th:text="${po.status}"></td>
+                            <td>
+                               <a  th:if="${po.status=='OPEN' || po.status=='PICKING'}" th:href="@{/purchaseOrder/addItems?purchaseOrderId={po_id}(po_id=${po.id})}" class="btn btn-primary btn-sm">Add Product</a>
+                               <a  th:unless="${po.status=='OPEN' || po.status=='PICKING'}" th:href="@{/purchaseOrder/addItems?purchaseOrderId={po_id}(po_id=${po.id})}" class="btn btn-warning btn-sm">View Product</a>
+                             </td>
+                            <td>
+                                <a th:if="${po.status=='ORDERED'}" th:href="@{/purchaseOrder/generateInvoice?purchaseOrderId={po_id}(po_id=${po.id})}" class="btn btn-info btn-sm">Generate Invoice</a>
+                                <a th:if="${po.status=='INVOICED'}" th:href="@{/purchaseOrder/printInvoice?purchaseOrderId={po_id}(po_id=${po.id})}" class="btn btn-success btn-sm">Print Invoice</a>
+                               <div th:if="${po.status=='OPEN' || po.status=='PICKING'}" class="btn btn-secondary btn-sm">NOT ORDERED</div>
+                            </td>
+                            
+                        </tr>
+                    </table>
+                    
+                                        <!-- Pagination -->
+                    
+<nav aria-label="Page navigation example" class="nav justify-content-center">
+  <ul class="pagination">
+    <li th:if="${currentPage != 0}" class="page-item"><a th:href="@{/purchaseOrder/all?page={cp}(cp=${currentPage-1})}" class="page-link" href="#">Previous</a></li>
+    
+    <li th:classappend="${currentPage==i-1?'active':''}" th:each="i :${#numbers.sequence(1,totalPages)}" class="page-item">
+        <a th:href="@{/purchaseOrder/all?page={i}(i=${i-1})}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+        
+    <li th:if="${currentPage+1 != totalPages}" class="page-item"><a th:href="@{/purchaseOrder/all?page={cp}(cp=${currentPage+1})}" class="page-link" href="#">Next</a></li>
+    
+  </ul>
+</nav>
+                    
+                </div>
+                <div class="card-footer bg-primary bg-gradient">
+                     <!-- <div class="alert alert-info text-center">Status:Fetched all records...</div> -->
+                </div>
+            </div>
+        </div>
+
+</section>
+</body>
+</html>

@@ -1,0 +1,16 @@
+com:
+  app:
+    id: 101
+    name: Rahul
+    add: Alld
+    list:    - Apple
+    - Blackberry
+    - Samsung
+    - Oneplus
+    map:      Apple: 100
+      Blackberry: 70
+      Samsung: 90
+      Oneplus: 60
+    std:      id: 007
+      name: Akash
+      add: Rajasthan

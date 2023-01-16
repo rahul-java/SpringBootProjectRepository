@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="BASE::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">Warehouse</title>
+</head>
+<body>
+
+<section>
+
+<div class="container"><br>
+            <div class="card">
+                <div class="card-header bg-primary bg-gradient text-center text-white">
+                   <h1>Edit OrderMethod</h1>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/order/update}" method="post" th:object="${OrderMethod}">
+                    <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="id">ID</label>
+                        </div>
+                        <div class="col-6">
+                             <input type="text" th:field="*{id}" class="form-control" readonly="readonly"> 
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                  </div><br>
+                     <div class="row">
+                            <div class="col-1">
+    
+                            </div>
+                            <div class="col-2">
+                                <label for="orderMode">Order Mode</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="radio" th:field="*{orderMode}"  value="PURCHASE">PURCHASE 
+                                <input type="radio" th:field="*{orderMode}"  value="SALE">SALE
+                                 
+                            </div>
+                            <div class="col-1">
+                                <span id="errorMsg"></span>
+                            </div>
+                            <div class="col-2">
+                                
+                            </div>
+                        </div><br>
+                    <!-- Order Code -->
+                    <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="orderCode">Order Code</label>
+                        </div>
+                        <div class="col-6">
+                             <input type="text" th:field="*{orderCode}" class="form-control"> 
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                  </div><br>
+                  
+                  <!-- Order Type -->
+                  <div class="row">
+                        <div class="col-1">
+
+                        </div>
+                        <div class="col-2">
+                            <label for="orderType">Order Type</label>
+                        </div>
+                        <div class="col-6">
+                            <!-- ENTER Input -->
+                             <select th:field="*{orderType}" class="form-control">
+                       <option value="">-Select-</option>
+                       <option value=FIFO>First In First Out</option>
+                       <option value="LIFO">Last In First Out</option>
+                       
+                    </select>
+                        </div>
+                        <div class="col-1">
+                            <span id="errorMsg"></span>
+                        </div>
+                        <div class="col-2">
+                            
+                        </div>
+                    </div><br>
+                  
+                  
+                 
+                  
+                        <div class="row">
+                            <div class="col-1">
+    
+                            </div>
+                            <div class="col-2">
+                                <label for="orderDescription">Description</label>
+                            </div>
+                            <div class="col-6">
+                                <textarea th:field="*{orderDescription}" class="form-control"></textarea> 
+                            </div>
+                            <div class="col-1">
+                                <span id="errorMsg"></span>
+                            </div>
+                            <div class="col-2">
+                                
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-1">
+    
+                            </div>
+                            <div class="col-2">
+                                <label for="orderAcceptList">Order Acceptance</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="checkbox" th:field="*{orderAcceptList}"  value="MULTIPLE ORDER">Multiple Order
+                                <input type="checkbox" th:field="*{orderAcceptList}"  value="RETURN">Return
+                                 
+                            </div>
+                            <div class="col-1">
+                                <span id="errorMsg"></span>
+                            </div>
+                            <div class="col-2">
+                                
+                            </div>
+                        </div><br>
+                        <div class="container" align="center">
+                          <input type="submit" value="UPDATE OrderMethod" class="btn btn-success">
+                          <a th:href="@{/order/}" class="btn btn-success text-white">Add More OrderType</a>
+                    
+                          <a th:href="@{/order/all?page=0}" class="btn btn-primary">View All OrderMethod</a>
+                       </div>
+                       
+                  </form>
+              </div>
+                <div class="card-footer bg-primary bg-gradient">
+                    <span th:text="${msg}" class="text-white"></span>
+                </div>
+          </div>
+      </div>
+
+
+
+</section>
+
+</body>
+</html>

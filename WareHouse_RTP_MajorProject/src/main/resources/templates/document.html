@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="BASE::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">Warehouse</title>
+</head>
+<body>
+	<section>
+	  <div class="container"><br>
+		<div class="card">
+
+			<div class="card-header bg-primary bg-gradient text-white text-center">
+				<h1>Document Upload</h1>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/doc/save}" method="post"
+					enctype="multipart/form-data">
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-1">
+							<label>ID :</label>
+						</div>
+						<div class="col-6">
+							<input type="text" name="id" class="form-control">
+						</div>
+						<div class="col-1">
+							<span id="errorMsg"></span>
+						</div>
+						<div class="col-2"></div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-1">
+							<label>File</label>
+						</div>
+						<div class="col-6">
+							<input type="file" name="docName" class="form-control">
+						</div>
+						<div class="col-3">
+						<div class="container" align="left">
+						<input type="submit" value="Upload"
+							class="btn btn-primary">
+							<a th:href="@{/doc/all}" class="btn btn-primary">View All</a>
+						</div>
+						</div>
+						
+						
+					</div>
+					<br>
+				</form>
+				<table class="table table-hover text-center">
+					<tr class="bg-success text-white">
+						<th>ID</th>
+						<th>DocName</th>
+						<th>Download Link</th>
+						<th>Option</th>
+					</tr>
+					<tr th:each="doc:${list}">
+						<td th:text="${doc[0]}"></td>
+						<td th:text="${doc[1]}"></td>
+						<td><a th:href="@{/doc/download?id={d_id}(d_id=${doc[0]})}" class="btn btn-success btn-sm">download</a></td>
+						<td> <a th:href="@{/doc/delete?id={d_id}(d_id=${doc[0]})}" class="btn btn-danger btn-sm">delete</a></td>
+					</tr>
+				</table>
+			<!-- 	
+				Pagination
+                    
+<nav aria-label="Page navigation example" class="nav justify-content-center">
+  <ul class="pagination">
+    <li th:if="${currentPage != 0}" class="page-item"><a th:href="@{/doc/all?page={cp}(cp=${currentPage-1})}" class="page-link" href="#">Previous</a></li>
+    
+    <li th:classappend="${currentPage==i-1?'active':''}" th:each="i :${#numbers.sequence(1,totalPages)}" class="page-item">
+        <a th:href="@{/doc/all?page={i}(i=${i-1})}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+        
+    <li th:if="${currentPage+1 != totalPages}" class="page-item"><a th:href="@{/doc/all?page={cp}(cp=${currentPage+1})}" class="page-link" href="#">Next</a></li>
+    
+  </ul>
+</nav> -->
+				
+			</div>
+			<div class="card-footer bg-primary bg-gradient">
+			</div>
+		</div>
+	</div>
+	</section>
+</body>
+</html>

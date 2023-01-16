@@ -1,0 +1,48 @@
+/*  
+html,body{
+background-image:url("/images/header-3.jpg");
+background-size: 800px 300px;
+background-repeat:repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}  */
+
+
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: 100px;
+}
+
+.login_btn:hover{
+color: #008040;
+background-color: white;
+border-color: #FFC312!important;
+	 border:2px;
+	 border-style: groove;
+	 font-weight: 500;
+}
+
+
+.menu:hover{
+    border:2px;
+	border-style: groove;
+	border-color: #FFC312!important;
+	border-radius:5px;
+    color: #FFC312!important;
+    font-weight: 500;
+}
+
+.menu-item:hover{
+    border:2px;
+	border-style: groove;
+	border-color: #008040!important;
+	border-radius:5px;
+    color: #008040!important;
+    font-weight: 500;
+}
+
+th:hover{
+	color: #FFC312!important;
+}
+

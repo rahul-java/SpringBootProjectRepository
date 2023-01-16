@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="BASE::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">Warehouse</title>
+</head>
+<body>
+<section>
+
+<div class="container"><br>
+            <div class="card">
+
+                <div class="card-header bg-primary bg-gradient text-white text-center">
+                    <h1>OrderMethod Data</h1>
+                    
+                </div>
+                <div class="card-body">
+                    <a th:href="@{/order/}" class="btn btn-success text-white menu ">Add More OrderType</a>
+                    <a th:href="@{/order/excel}" class="btn btn-success menu ">EXCEL EXP</a>
+                    <a th:href="@{/order/pdf}" class="btn btn-success menu ">PDF EXP</a>
+                    <table class="table table-hover text-center mt-1">
+                        <tr class="bg-success text-white ">
+                           <th>ID</th>
+                           <th>Mode</th>
+                           <th>Code</th>
+                           <th>Type</th>
+                           <th>DESCRIPTION</th>
+                           <th>OrderAcceptList</th>
+                           <th>Option</th>
+                           
+                        </tr>
+                        <tr th:each="order:${list}">
+                           <td th:text="${order.id}"></td>
+                           <td th:text="${order.orderMode}"></td>
+                           <td th:text="${order.orderCode}"></td>
+                           <td th:text="${order.orderType}"></td>
+                           
+                           <td th:text="${order.orderDescription}"></td>
+                           <td th:text="${order.orderAcceptList}"></td>
+                           
+                            <td>
+                                <a th:href="@{/order/edit?id={order_id}(order_id=${order.id})}" class="btn btn-primary btn-sm">edit</a>
+                                <a th:href="@{/order/delete?id={order_id}(order_id=${order.id})}" class="btn btn-danger btn-sm">delete</a>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <!-- Pagination -->
+                    
+<nav aria-label="Page navigation example" class="nav justify-content-center">
+  <ul class="pagination">
+    <li th:if="${currentPage != 0}" class="page-item"><a th:href="@{/order/all?page={cp}(cp=${currentPage-1})}" class="page-link" href="#">Previous</a></li>
+    
+    <li th:classappend="${currentPage==i-1?'active':''}" th:each="i :${#numbers.sequence(1,totalPages)}" class="page-item">
+        <a th:href="@{/order/all?page={i}(i=${i-1})}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+        
+    <li th:if="${currentPage+1 != totalPages}" class="page-item"><a th:href="@{/order/all?page={cp}(cp=${currentPage+1})}" class="page-link" href="#">Next</a></li>
+    
+  </ul>
+</nav>
+                    
+                </div>
+                <div class="card-footer bg-primary bg-gradient">
+                     <!-- <div class="alert alert-info text-center">Status:Fetched all records...</div> -->
+                </div>
+            </div>
+        </div>
+</section>
+</body>
+</html>

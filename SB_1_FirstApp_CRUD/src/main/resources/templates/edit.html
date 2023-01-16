@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div align="center">
+<h1>Edit Student</h1>
+<span th:text="${sid}"></span>
+<form th:action="@{/save}" method="post" th:object="${student}">
+<pre>
+<!--  ID      : <input type="hidden" th:field="*{id}"> -->
+ID      : <input type="text" th:field="*{id}" readonly="readonly">
+Name    : <input type="text" th:field="*{name}">
+Address : <input type="text" th:field="*{add}">
+Fee     : <input type="text" th:field="*{fee}">
+</pre>
+<input type="submit" value="update">
+<a href="/all">GetAllStudent</a>
+
+</form>
+</div>
+</body>
+</html>
