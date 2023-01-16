@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}"></title>
+</head>
+<body>
+<section>
+<div class="card mr-4 ml-3">
+        <h1 class="text-center bg-primary text-white">Settings</h1>
+    <div class="card-body" >
+      
+           <div class="container text-center">
+             <h2 class="text-center bg-primary text-white">Change Password</h2>
+              <img alt="dashboardPhoto" style="height: 80px; width: 80px;" src="" th:src="@{/img/download/settings.png}" class="my-profile-picture">
+           
+           <form th:action="@{/user/change-password}" method="post">
+            <!-- Old Password Field -->
+            
+            <div class="input-group mt-3">
+             <div class="input-group-prepend">
+          
+             <div class="input-group-text">
+               <i class="fa-solid fa-key"></i>
+             </div>
+          </div>
+              <input required type="password" name="oldPassword" class="form-control" placeholder="Enter Your Old Password" />
+            </div>
+            
+            <div class="input-group mt-3">
+             <div class="input-group-prepend">
+          
+             <div class="input-group-text">
+              <i class="fa-solid fa-lock"></i>
+             </div>
+          </div>
+              <input required type="password" name="newPassword" class="form-control" placeholder="Enter Your New Password" />
+            </div>
+            
+           <div class="container text-center mt-3">
+            <button type="submit" class="btn btn-success">Change Password</button>
+           <button type="reset" class="btn btn-warning">Reset</button>
+           </div>
+         </form>
+          </div>
+           
+    </div>
+</div>  
+<script>
+    $(document).ready(()=>{
+        $(".item").removeClass("active");
+        $("#settings-link").addClass("active");
+    });
+
+</script>         
+</section>
+</body>
+</html>

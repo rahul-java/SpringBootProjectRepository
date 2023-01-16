@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}"></title>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+<section>
+<div class="card mr-4 ml-3">
+        <h1 class="text-center bg-primary text-white">Payment Form</h1>
+    <div class="card-body" >
+      
+           <div class="container text-center">
+             <h2 class="text-center bg-primary text-white">Donate Us</h2>
+              <img alt="dashboardPhoto" style="height: 100px; width: 100px;" src="" th:src="@{/img/download/wallet1.png}" class="my-profile-picture">
+           
+           
+            
+            
+            <div class="input-group mt-3">
+             <div class="input-group-prepend">
+          
+             <div class="input-group-text">
+               <i class="fa-sharp fa-solid fa-indian-rupee-sign"></i>
+             </div>
+          </div>
+              <input required type="text" name="amount" id="amount" class="form-control" placeholder="Enter Amount Here" />
+            </div>
+            
+            
+           <div class="container text-center mt-4">
+            <button onclick="paymentStart()" class="btn btn-success btn-block">Pay Now</button>
+           <!-- <button type="reset" class="btn btn-warning btn-block">Reset</button> -->
+           </div>
+         
+          </div>
+           
+    </div>
+</div>  
+<script>
+    $(document).ready(()=>{
+        $(".item").removeClass("active");
+        $("#payment-link").addClass("active");
+    });
+
+</script>         
+</section>
+</body>
+</html>
